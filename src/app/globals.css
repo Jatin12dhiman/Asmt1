@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+.marquee-row {
+  animation: scroll-left 25s linear infinite;
+}
+
