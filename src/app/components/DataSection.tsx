@@ -70,22 +70,29 @@ const DataSection = () => {
         </p>
 
         <div className="mt-8">
-          {/* Mobile / tablet: horizontal scroll */}
-          <div className="flex gap-4 min-w-max marquee-row lg:hidden overflow-x-hidden">
-            {[...cards, ...cards.slice(0, 2)].map((card, idx) => (
-              <div key={idx} className="flex-shrink-0 relative bg-[#f6f3ef] rounded-sm h-50 md:h-60 w-48 md:w-60 flex items-center justify-center shadow-sm overflow-hidden group">
-                <span
-                  className={`text-gray-500 text-lg md:text-xl font-semibold group-hover:text-black transition-colors duration-500 ${card.tracking || ""} ${card.bold ? "font-extrabold leading-tight text-center" : ""}`}
-                  dangerouslySetInnerHTML={{ __html: card.name }}
-                />
-                <span className="absolute top-2 left-0 w-full text-center text-sm md:text-base text-black font-medium opacity-0 transform ">
-                  {card.top}
-                </span>
-                <span className="absolute bottom-2 left-0 w-full text-center text-sm md:text-base text-black font-medium opacity-0 transform ">
-                  {card.bottom}
-                </span>
-              </div>
-            ))}
+          {/* Mobile / tablet: horizontal marquee constrained to viewport */}
+          <div className="relative w-full overflow-hidden lg:hidden">
+            {/* edge fades */}
+            <div className="pointer-events-none absolute left-0 top-0 h-full w-10 bg-gradient-to-r from-[#f7f4f0] to-transparent" />
+            <div className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-[#f7f4f0] to-transparent" />
+
+            {/* scrolling track */}
+            <div className="marquee-row flex gap-4 min-w-max">
+              {[...cards, ...cards.slice(0, 2)].map((card, idx) => (
+                <div key={idx} className="flex-shrink-0 relative bg-[#f6f3ef] rounded-sm h-50 md:h-60 w-48 md:w-60 flex items-center justify-center shadow-sm overflow-hidden group">
+                  <span
+                    className={`text-gray-500 text-lg md:text-xl font-semibold group-hover:text-black transition-colors duration-500 ${card.tracking || ""} ${card.bold ? "font-extrabold leading-tight text-center" : ""}`}
+                    dangerouslySetInnerHTML={{ __html: card.name }}
+                  />
+                  <span className="absolute top-2 left-0 w-full text-center text-sm md:text-base text-black font-medium opacity-0 transform ">
+                    {card.top}
+                  </span>
+                  <span className="absolute bottom-2 left-0 w-full text-center text-sm md:text-base text-black font-medium opacity-0 transform ">
+                    {card.bottom}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Large screens: 4x2 grid */}
